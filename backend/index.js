@@ -2,28 +2,28 @@ import express from "express";
 import dotenv from "dotenv";
 dotenv.config();
 import mongoose from "mongoose";
-import { WPM } from "./models/WPM.js";
+import wpmRoute from "./routes/wpmRoute.js";
+import { wpmModel } from "./models/wpmModel.js";
 const app = express();
 app.use(express.json());
+app.use(
+  cors({
+    origin: "localhost:3000",
+    credentials: true,
+    methods: ["GET", "POST", "PUT", "DELETE"],
+    allowedHeaders: ["Content-Type", "Authorization"],
+  })
+);
 
 mongoose.connect(process.env.DATABASE_URL);
 
 const db = mongoose.connection;
-app.post("/wpm", (req, res) => {
-  const wpm = new WPM({
-    Level: req.body.Level,
-    WPM: req.body.WPM,
-  });
-  wpm
-    .save()
-    .then(() => {
-      res.status(201).send("WPM saved");
-    })
-    .catch((err) => {
-      console.log(err);
-      res.status(500).send("Error");
-    });
+
+app.get("/", (req, res) => {
+  res.send("Server is ready");
 });
+
+app.use("/api", wpmRoute);
 
 db.on("error", console.error.bind(console, "MongoDB connection error:"));
 db.once("open", () => {
