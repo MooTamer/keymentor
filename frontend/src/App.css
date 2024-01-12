@@ -1,42 +1,61 @@
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@100;300;400;500;700;800;900&display=swap');
+body {
+	font-family: 'M PLUS Rounded 1c', sans-serif;
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+/* Or for specific elements */
+h1,
+h2,
+h3,
+p {
+	font-family: 'M PLUS Rounded 1c', sans-serif;
 }
 
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.ppInput {
+	display: none;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
+.custom-file-upload {
+	margin: auto;
+	width: 130px;
+	height: 130px;
+	border-radius: 50%;
+	cursor: pointer;
+	object-fit: cover;
+	object-position: center center;
 }
 
-.card {
-  padding: 2em;
+.custom-file-upload2 {
+	margin: auto;
+	width: 50px;
+	height: 50px;
+	border-radius: 50%;
+	cursor: pointer;
+	object-fit: cover;
+	object-position: center center;
 }
 
-.read-the-docs {
-  color: #888;
+.notifDrop {
+	position: relative;
+	z-index: 9999;
 }
+
+.bringBack {
+	position: relative;
+	z-index: -9999;
+}
+/* @media (max-width: 1700px) {
+	.heroBringBack {
+		position: relative;
+		z-index: -9999;
+	}
+} */
+
+/* .card1 {
+	position: relative;
+	z-index: 99999;
+} */
