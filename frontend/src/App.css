@@ -48,6 +48,21 @@ p {
 	position: relative;
 	z-index: -9999;
 }
+@keyframes float {
+	0% {
+	  transform: translatey(0px);
+	}
+	50% {
+	transform: translate(-3px, -3px);
+	}
+	100% {
+	  transform: translatey(0px);
+	}
+  }
+  
+  .float-effect {
+	@apply animate-float;
+  }
 /* @media (max-width: 1700px) {
 	.heroBringBack {
 		position: relative;

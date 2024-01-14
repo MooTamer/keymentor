@@ -9,13 +9,16 @@ import Login from "../../frontend/src/pages/login.jsx";
 import Signup from "../../frontend/src/pages/signup.jsx";
 import Dashboard from "../../frontend/src/pages/dashborad.jsx";
 import Ranks from "../../frontend/src/pages/ranks.jsx";
-import Navbar from "./pages/navbar.jsx";
+import Navbar from "./pages/components/navbar.jsx";
 import Footer from "./pages/components/footer.jsx";
+import stats from "./pages/components/stats.jsx";
+import { useState, useEffect } from "react";
 
 function App() {
+  // const [theme, setTheme] = useState("dark");
   return (
     <>
-      {/* <div className="mt-2.5 mb-16 mr-3.5 ml-3.5 shadow-11xl"> */}
+      {/* <div className={`theme-controller ${theme}`}> */}
       <Navbar />
       <Routes>
         <Route path="/" element={<Home />} />
@@ -27,6 +30,7 @@ function App() {
         <Route path="*" element={<NotFound />} />
       </Routes>
       <Footer />
+      {/* </div> */}
     </>
   );
 }
