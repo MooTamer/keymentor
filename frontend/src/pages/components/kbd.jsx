@@ -34,7 +34,7 @@ const Kbd = () => {
                 {keys.map((row, rowIndex) => (
                     <div key={rowIndex} className="flex  justify-center gap-1 my-1 w-full ">
                         {row.map((key, index) => (
-                            <kbd key={index} className={`kbd hover:scale-110 transition ease-in-ease-out duration-500  ${key === pressedKey ? 'bg-secondary scale-125 transition ease-in-ease-out duration-300 ' : ''} ${key === ' ' ? 'flex w-52 ' : ''} transition ease-in-out duration-500`}>{key === ' ' ? '' : key}</kbd>
+                            <kbd key={index} className={`kbd hover:scale-110 transition ease-in-ease-out duration-500  ${key === pressedKey ? 'bg-primary scale-125 transition ease-in-ease-out duration-300 ' : ''} ${key === ' ' ? 'flex w-52 ' : ''} transition ease-in-out duration-500`}>{key === ' ' ? '' : key}</kbd>
                         ))}
                     </div>
                 ))}

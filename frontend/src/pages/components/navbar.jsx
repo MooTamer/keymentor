@@ -1,7 +1,8 @@
 import React from 'react';
 import { motion, AnimatePresence } from "framer-motion"
 import { useState, useEffect } from 'react';
-const Navbar = () => {
+import pp from "../../assets/pp.jpg"
+const Navbar = ({setCurrentTheme}) => {
 
     const [theme, setTheme] = useState('dark');
 
@@ -18,7 +19,7 @@ const Navbar = () => {
             <div className={`navbar bg-primary flex rounded-full hover:scale-101.5 transition ease-in-ease-out duration-500 z-50 w-[-webkit-fill-available]  fixed  mt-3.5 mb-16 mx-8 shadow-3xl ${theme}`}>
                 <div className="flex-auto">
                     <div className="flex justify-center">
-                        <a className="btn btn-ghost rounded-full text-xl">KeyMentor <strong className="text-secondary" >Studio</strong></a>
+                        <a className="btn btn-ghost rounded-full text-base-100 text-xl">KeyMentor <strong className="text-accent" >Studio</strong></a>
                     </div>
                 </div>
                 <div className="flex-none">
@@ -58,7 +59,7 @@ const Navbar = () => {
 
                             <div className="w-10 rounded-full">
 
-                                <img alt="Tailwind CSS Navbar component" src="https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg" />
+                                <img alt="Tailwind CSS Navbar component" src={pp} />
 
                             </div>
                         </div>

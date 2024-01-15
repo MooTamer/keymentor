@@ -11,6 +11,49 @@ const Typewriter = () => {
     const [startTime, setStartTime] = useState(null);
     const [wpm, setWpm] = useState(0);
     const [correctWords, setCorrectWords] = useState(0);
+    const [accuracy, setAccuracy] = useState(0);
+    const color = "shadow-[0_0_220px_-22px_rgba(184,80,66,1)]";
+    const [cursorVisible, setCursorVisible] = useState(true);
+    const [cursorPosition, setCursorPosition] = useState(0);
+    const [timer, setTimer] = useState(5);
+
+    useEffect(() => {
+        if (start && timer > 0) {
+            const timerId = setInterval(() => {
+                setTimer((prevTimer) => prevTimer - 1);
+            }, 1000);
+
+            return () => {
+                clearInterval(timerId);
+            };
+        } else if (timer === 0) {
+            setStart(false);
+        }
+    }, [start, timer]);
+
+    useEffect(() => {
+        const cursorInterval = setInterval(() => {
+            setCursorVisible((prevCursorVisible) => !prevCursorVisible);
+        }, 500);
+
+        return () => {
+            clearInterval(cursorInterval);
+        };
+    }, []);
+    useEffect(() => {
+        if (typed.length > 0 && typed.length <= words.length) {
+            setCursorPosition(typed.length);
+        }
+    }, [typed, words]);
+    useEffect(() => {
+        const cursorInterval = setInterval(() => {
+            setCursorVisible(prevCursorVisible => !prevCursorVisible);
+        }, 500);
+
+        return () => {
+            clearInterval(cursorInterval);
+        };
+    }, []);
 
     useEffect(() => {
         if (start) {
@@ -25,6 +68,7 @@ const Typewriter = () => {
 
         if (!startTime) {
             setStartTime(Date.now());
+            // setStart(true); // Start the timer when you start typing
         }
 
         if (event.key === 'Backspace') {
@@ -41,7 +85,43 @@ const Typewriter = () => {
             });
 
         }
+
     };
+    useEffect(() => {
+        if (start && timer > 0) {
+            const timerId = setInterval(() => {
+                setTimer((prevTimer) => prevTimer - 1);
+            }, 1000);
+
+            return () => {
+                clearInterval(timerId);
+            };
+        } else if (timer === 0) {
+            setStart(false);
+        }
+    }, [start, timer]);
+
+    useEffect(() => {
+        if (typed.length > 0) {
+            const correctTyped = typed.filter(t => t.correct).length;
+            setAccuracy((correctTyped / typed.length) * 100);
+        }
+    }, [typed]);
+
+
+    const resetState = () => {
+        setTyped([]);
+        setWords(faker.random.words(wordsCount));
+        setWordsCount(wordsCount);
+        setStart(false);
+        setStartTime(null);
+        setWpm(0);
+        setAccuracy(0);
+        setCorrectWords(0);
+    };
+    useEffect(() => {
+        resetState();
+    }, []);
 
     useEffect(() => {
         window.addEventListener('keydown', handleKeyPress);
@@ -60,45 +140,65 @@ const Typewriter = () => {
         setWordsCount(Number(event.target.value));
     };
 
+
+
+
+
     return (
-        <motion.div>
-            <div className='grid '>
+        <motion.div className="flex justify-center items-center mb-20 px-14 my-8 md:px-2 mx-14 md:mx-18 md:my-2 mt-4">
+            <div className='grid my-4'>
+
                 {buttonVisible && (
-                    <div className="flex justify-center mx-4 my-6 items-center">
-                        <button className="btn btn-primary rounded-full mx-4" onClick={handleClick}>
+                    <div className="flex justify-center mx-4 my-2 items-center">
+                        <button className="btn btn-primary rounded-full mx-4" onClick={(e) => { handleClick(); resetState(); }}>
                             Start
                         </button>
-                        <input type="number" placeholder="How many words?" onChange={handleWordsCountChange} className="input input-bordered w-full max-w-xs" />
+                        <input type="number" placeholder="How many words?" onChange={handleWordsCountChange} className="input shadow-xl input-bordered w-full max-w-xs" />
                     </div>
                 )}
-                <div className={`relative card flex px-12 mx-32 mt-4 mb-8 float-effect shadow-11xl ${buttonVisible ? 'blur' : ''}`}>
-                    <div className="card-body">
-                        <h2 className="card-title text-primary text-center flex justify-center items-center">Write This</h2>
-                        <p>
-                            {words.split('').map((char, index) => (
-                                <span
-                                    key={index}
-                                    className={
-                                        typed[index]
-                                            ? typed[index]?.key.toLowerCase() === char.toLowerCase()
-                                                ? 'text-primary '
-                                                : 'text-red-500 line-through'
-                                            : char === ' ' ? 'text-red-500 ' : 'text-grey-500'
-                                    }
+                {!buttonVisible && (
+                    <div className={`relative card flex justify-center mb-8 float-effect ${color} responsive-card`}>
+                        <div className="card-body">
+                            <h2 className="card-title text-primary font-bold text-4xl text-center mb-8 flex justify-center items-center">Write This</h2>
+                            <p className='text-3xl my-4 mx-4 md-my-8 md:mx-4 overflow-auto max-h-64'>
+                                {words.split('').map((char, index) => (
+                                    <React.Fragment key={index}>
+                                        <span
+                                            className={
+                                                typed[index]
+                                                    ? typed[index]?.key.toLowerCase() === char.toLowerCase()
+                                                        ? 'text-primary font-bold'
+                                                        : 'text-black line-through'
+                                                    : char === ' ' ? 'text-red-500 ' : 'text-grey-500'
+                                            }
+                                        >
+                                            {char}
+                                        </span>
+                                        {index === typed.length - 1 && <span className={cursorVisible ? 'cursor' : ''}><text className='text-primary'>|</text></span>}
+                                    </React.Fragment>
+                                ))}
+                                {typed.length === words.length && <span className={cursorVisible ? 'cursor' : ''}></span>}
+                            </p>
+                            <p className='text-primary justify-center font-bold text-xl mt-4 flex'>WPM: {Math.round(wpm)}</p>
+                            <p className='text-primary justify-center font-bold text-xl mb-4 flex'>Accuracy: {Math.round(accuracy)}%</p>
+                            {/* {!buttonVisible && (
+                                <p className='text-primary justify-center font-bold text-xl mt-4 flex'>Timer: {timer}</p>
+                            )} */}
+                            <div className="card-actions justify-end">
+                                <button
+                                    className="btn rounded-full flex hover:scale-101.5 transition ease-in-ease-out duration-500 btn-primary"
+                                    onClick={resetState}
                                 >
-                                    {char}
-                                </span>
-                            ))}
-                        </p>
-                        <p>WPM: {Math.round(wpm)}</p>
-                        <div className="card-actions justify-end">
-                            <button className="btn rounded-full hover:scale-101.5 transition ease-in-ease-out duration-500 btn-primary">Learn now!</button>
+                                    Reset
+                                </button>
+
+                            </div>
                         </div>
                     </div>
-                </div>
+                )}
             </div>
-        </motion.div>
+        </motion.div >
     );
-};
+}
 
 export default Typewriter;

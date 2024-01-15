@@ -15,6 +15,26 @@ import stats from "./pages/components/stats.jsx";
 import { useState, useEffect } from "react";
 
 function App() {
+
+
+  const [currentTheme, setCurrentTheme] = useState("");
+
+
+  useEffect(() => {
+    const changeTheme = async () => {
+      try {
+        setCurrentTheme(currentTheme);
+        localStorage.setItem("theme", currentTheme);
+        document
+          .querySelector("html")
+          .setAttribute("data-theme", currentTheme);
+        console.log("documentTheme:", currentTheme);
+      } catch (error) {
+        console.error("Error fetching brand data:", error);
+      }
+    };
+    changeTheme();
+  }, [currentTheme]);
   // const [theme, setTheme] = useState("dark");
   return (
     <>
