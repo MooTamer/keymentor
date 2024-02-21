@@ -1,0 +1,32 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.test {
+  @apply relative;
+  -webkit-text-stroke-color: white;
+  -webkit-text-stroke-width: 1px;
+}
+
+.test::before,
+.test::after {
+  content: attr(data-text);
+  position: absolute;
+  top: 0;
+  left: 0;
+  transition: 0.3s ease-in-out;
+}
+
+.test:hover::before {
+  color: #b85042;
+  transform: translate(12px, -12px);
+  -webkit-text-stroke-color: black;
+  -webkit-text-stroke-width: 1px;
+}
+
+.test:hover::after {
+  color: #e7e8d1;
+  transform: translate(24px, -24px);
+  -webkit-text-stroke-color: black;
+  -webkit-text-stroke-width: 1px;
+}

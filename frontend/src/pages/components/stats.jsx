@@ -3,8 +3,8 @@ import pp from "../../assets/pp.jpg"
 
 const stats = () => {
     return (
-        <div className="flex justify-center my-4 items-center min-h-44">
-            <div className="stats shadow grid mx-auto w-3/4  shadow-[0_0_220px_-22px_rgba(184,80,66,1)]">
+        <div className="flex relative justify-center mx-8 my-4 items-center min-h-44 max-w-7xl">
+            <div className="stats absolute shadow grid mx-auto w-3/4  shadow-[0_0_220px_-22px_rgba(184,80,66,1)]">
 
                 <div className="stat w-full sm:w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/4">
                     <div className="stat-figure text-primary">

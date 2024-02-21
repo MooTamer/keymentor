@@ -2,7 +2,8 @@ import React from 'react';
 import { motion, AnimatePresence } from "framer-motion"
 import { useState, useEffect } from 'react';
 import pp from "../../assets/pp.jpg"
-const Navbar = ({setCurrentTheme}) => {
+import '../../assets/css/home.css';
+const Navbar = ({ setCurrentTheme }) => {
 
     const [theme, setTheme] = useState('dark');
 
@@ -19,7 +20,9 @@ const Navbar = ({setCurrentTheme}) => {
             <div className={`navbar bg-primary flex rounded-full hover:scale-101.5 transition ease-in-ease-out duration-500 z-50 w-[-webkit-fill-available]  fixed  mt-3.5 mb-16 mx-8 shadow-3xl ${theme}`}>
                 <div className="flex-auto">
                     <div className="flex justify-center">
-                        <a className="btn btn-ghost rounded-full text-base-100 text-xl">KeyMentor <strong className="text-accent" >Studio</strong></a>
+                        <nav className="test">
+                            <a className=" btn btn-ghost rounded-full text-base-100 text-xl">KeyMentor <strong className="text-accent" >Studio</strong></a>
+                        </nav>
                     </div>
                 </div>
                 <div className="flex-none">
@@ -31,7 +34,7 @@ const Navbar = ({setCurrentTheme}) => {
                             </div>
                         </div>
                         {/* <div tabIndex={0} className="mt-3 z-[1] card card-compact dropdown-content w-52 bg-base-100 shadow">
-                            <div className="card-body">
+                            <div className="card-body">s
                                 <span className="font-bold text-lg">8 Items</span>
                                 <span className="text-info">Subtotal: $999</span>
                                 <div className="card-actions">

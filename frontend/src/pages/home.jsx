@@ -6,13 +6,15 @@ import Kbd from "./components/kbd";
 import Typewriter from "./components/typewriter";
 import { motion } from 'framer-motion';
 import Stats from './components/stats';
+import Progress from './components/progress';
+import '../assets/css/home.css';
+
 
 const Home = () => {
     return (
         <motion.div>
             <Parallax bgImage={home} strength={500}>
                 <div className="hero min-h-screen relative">
-                    {/* Video element for the background */}
                     <video src={home} autoPlay loop muted className="bg-[(0,0,0,0.9)] absolute inset-0 w-full h-full object-cover">
                         Your browser does not support the video tag.
                     </video>
@@ -29,6 +31,7 @@ const Home = () => {
                         </div>
                     </div>
                 </div>
+                <Progress />
                 <Stats />
                 <Kbd />
                 <div id="section-to-scroll">
